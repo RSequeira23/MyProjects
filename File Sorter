@@ -1,0 +1,31 @@
+import os, shutil
+path = "C:/Users/Ruben/Desktop/Projects/"
+if os.path.exists(path):
+    file_names = os.listdir(path)
+else:
+    print("Invalid path:", path)
+    exit()
+#Create the folders if not existing
+folder_names = ['Image Files', 'Text Files', 'Excel Files']
+
+for folder in folder_names:
+    folder_path = os.path.join(path, folder)
+    if not os.path.exists(folder_path):
+        os.mkdir(folder_path)
+        
+#set the files on the correct folder and display which ones did not join
+for file in file_names:
+    if ".jpeg" in file:
+        destination = os.path.join(path, "Image Files", file)
+        if not os.path.exists(destination):
+            shutil.move(os.path.join(path, file), destination)
+    elif ".txt" in file:
+        destination = os.path.join(path, "Text Files", file)
+        if not os.path.exists(destination):
+            shutil.move(os.path.join(path, file), destination)
+    elif ".xlsx" in file:
+        destination = os.path.join(path, "Excel Files", file)
+        if not os.path.exists(destination):
+            shutil.move(os.path.join(path, file), destination)
+    elif not os.path.isdir(os.path.join(path, file)):
+        print("File not moved:", file)
